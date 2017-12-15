@@ -1,0 +1,22 @@
+{
+  "name": "electronapp",
+  "version": "1.0.0",
+  "description": "Electron To Do List",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stacyweter/electronApp.git"
+  },
+  "author": "Stacy Weter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stacyweter/electronApp/issues"
+  },
+  "homepage": "https://github.com/stacyweter/electronApp#readme",
+  "dependencies": {
+    "electron": "^1.7.9"
+  }
+}

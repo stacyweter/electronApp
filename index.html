@@ -1,0 +1,64 @@
+<!DOCTYPE = html>
+<html lang="en">
+    <head>
+        <title>To Do List</title>
+    </head>   
+    <body>
+        <h1 style="text-align:center; color: white; background-color: purple;"> To Do List</h1>
+        <div>
+            <ul> </ul>
+        </div>
+        <button id="create">Save list to file</button>
+
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron; 
+        const ul = document.querySelector('ul');
+        const fs = require('fs');
+        const app = require('electron').remote;
+        const dialog = app.dialog;
+
+        document.getElementById('create').addEventListener('click', saveFile);
+
+        function saveFile(){
+            dialog.showSaveDialog((filename)=>{
+            if(filename === undefined){
+               alert("No file name entered");
+               return;
+            }
+            var content = document.getElementsByTagName('li').innerHTML;
+
+            fs.writeFile(filename, content, (err)=>{
+              if (err) console.log(err);
+             alert("File saved successfully!");
+             })
+            })
+        };
+
+
+        ipcRenderer.on('item:add', function(e, item){
+            const li = document.createElement('li');
+            const itemTask = document.createTextNode(item);
+            li.appendChild(itemTask);
+            ul.appendChild(li);
+        })
+
+        ipcRenderer.on('item:clear', function(){
+           ul.innerHTML= "";
+        });
+
+        ul.addEventListener('dblclick', removeTask);
+
+        function removeTask(e){
+            e.target.remove();
+        };
+
+        //ipcRenderer.on('file:open', function(e, data){
+          //  const li = document.createElement('li');
+            //const itemTask = document.createTextNode(item);
+            //li.appendChild(itemTask);
+            //ul.appendChild(li);
+        //})
+    </script>
+    </body>
+</html>
